@@ -1,11 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { History, CheckCircle, XCircle, Clock, ArrowRight } from 'lucide-react';
+import { History, CheckCircle, XCircle, Clock, ArrowRight, FileText } from 'lucide-react';
+import { DetailView } from './DetailView';
+import { DocumentationView } from './DocumentationView';
 
 export const DeploymentHistory = () => {
+  const [selectedDeployment, setSelectedDeployment] = useState<any>(null);
+  const [detailViewOpen, setDetailViewOpen] = useState(false);
+  const [documentationViewOpen, setDocumentationViewOpen] = useState(false);
   const deployments = [
     {
       id: "dep-001",
@@ -68,69 +73,113 @@ export const DeploymentHistory = () => {
   };
 
   return (
-    <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle className="text-slate-200 flex items-center justify-between">
-          <div className="flex items-center">
-            <History className="w-5 h-5 mr-2 text-green-400" />
-            Deployment History
-          </div>
-          <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
-            View All
-          </Button>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {deployments.map((deployment) => {
-          const StatusIcon = getStatusIcon(deployment.status);
-          return (
-            <div key={deployment.id} className="p-4 bg-slate-900/50 rounded-lg border border-slate-600/50">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-3">
-                  <StatusIcon className="w-5 h-5 text-slate-400" />
+    <>
+      <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle className="text-slate-200 flex items-center justify-between">
+            <div className="flex items-center">
+              <History className="w-5 h-5 mr-2 text-green-400" />
+              Histórico de Implantações
+            </div>
+            <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+              Ver Todos
+            </Button>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {deployments.map((deployment) => {
+            const StatusIcon = getStatusIcon(deployment.status);
+            return (
+              <div key={deployment.id} className="p-4 bg-slate-900/50 rounded-lg border border-slate-600/50">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-3">
+                    <StatusIcon className="w-5 h-5 text-slate-400" />
+                    <div>
+                      <h4 className="font-semibold text-slate-200">
+                        {deployment.service} <ArrowRight className="w-3 h-3 inline mx-1" /> {deployment.version}
+                      </h4>
+                      <p className="text-xs text-slate-400">{deployment.timestamp}</p>
+                    </div>
+                  </div>
+                  <Badge variant="outline" className={getStatusColor(deployment.status)}>
+                    {deployment.status === 'success' ? 'sucesso' : 
+                     deployment.status === 'failed' ? 'falha' : 
+                     deployment.status === 'in_progress' ? 'em progresso' : 
+                     deployment.status.replace('_', ' ')}
+                  </Badge>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 text-sm mb-3">
                   <div>
-                    <h4 className="font-semibold text-slate-200">
-                      {deployment.service} <ArrowRight className="w-3 h-3 inline mx-1" /> {deployment.version}
-                    </h4>
-                    <p className="text-xs text-slate-400">{deployment.timestamp}</p>
+                    <span className="text-slate-400">Duração:</span>
+                    <p className="text-slate-200">{deployment.duration}</p>
+                  </div>
+                  <div>
+                    <span className="text-slate-400">Score IA:</span>
+                    <p className="text-slate-200">{deployment.confidence_score}%</p>
+                  </div>
+                  <div>
+                    <span className="text-slate-400">Rollback:</span>
+                    <p className={deployment.rollback_available ? "text-green-300" : "text-slate-400"}>
+                      {deployment.rollback_available ? "Disponível" : "N/A"}
+                    </p>
                   </div>
                 </div>
-                <Badge variant="outline" className={getStatusColor(deployment.status)}>
-                  {deployment.status.replace('_', ' ')}
-                </Badge>
-              </div>
-              
-              <div className="grid grid-cols-3 gap-4 text-sm mb-3">
-                <div>
-                  <span className="text-slate-400">Duration:</span>
-                  <p className="text-slate-200">{deployment.duration}</p>
+                
+                <div className="flex space-x-2">
+                  <div className="flex space-x-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="border-slate-600 hover:bg-slate-700"
+                      onClick={() => {
+                        setSelectedDeployment(deployment);
+                        setDetailViewOpen(true);
+                      }}
+                    >
+                      Ver Logs
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="border-slate-600 hover:bg-slate-700"
+                      onClick={() => {
+                        setSelectedDeployment(deployment);
+                        setDocumentationViewOpen(true);
+                      }}
+                    >
+                      <FileText className="w-3 h-3 mr-1" />
+                      Docs
+                    </Button>
+                  </div>
+                  {deployment.rollback_available && (
+                    <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+                      Reverter
+                    </Button>
+                  )}
                 </div>
-                <div>
-                  <span className="text-slate-400">AI Score:</span>
-                  <p className="text-slate-200">{deployment.confidence_score}%</p>
-                </div>
-                <div>
-                  <span className="text-slate-400">Rollback:</span>
-                  <p className={deployment.rollback_available ? "text-green-300" : "text-slate-400"}>
-                    {deployment.rollback_available ? "Available" : "N/A"}
-                  </p>
-                </div>
               </div>
-              
-              <div className="flex space-x-2">
-                <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
-                  View Logs
-                </Button>
-                {deployment.rollback_available && (
-                  <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
-                    Rollback
-                  </Button>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </CardContent>
-    </Card>
+            );
+          })}
+        </CardContent>
+      </Card>
+      
+      {/* Modal de detalhes */}
+      <DetailView 
+        open={detailViewOpen}
+        onClose={() => setDetailViewOpen(false)}
+        data={selectedDeployment}
+        type="deployment"
+      />
+      
+      {/* Visualização de documentação */}
+      {selectedDeployment && (
+        <DocumentationView
+          open={documentationViewOpen}
+          onClose={() => setDocumentationViewOpen(false)}
+          service={selectedDeployment.service}
+        />
+      )}
+    </>
   );
 };

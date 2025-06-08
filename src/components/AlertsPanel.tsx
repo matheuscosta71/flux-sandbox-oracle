@@ -10,33 +10,33 @@ export const AlertsPanel = () => {
     {
       id: "alert-001",
       type: "warning",
-      title: "High Memory Usage Detected",
-      message: "payment-gateway sandbox consuming 85% memory",
-      timestamp: "2 min ago",
+      title: "Alto Uso de Memória Detectado",
+      message: "sandbox payment-gateway consumindo 85% de memória",
+      timestamp: "2 min atrás",
       action_required: true
     },
     {
       id: "alert-002",
       type: "info", 
-      title: "AI Model Retrained",
-      message: "Deploy prediction accuracy improved to 94.2%",
-      timestamp: "15 min ago",
+      title: "Modelo de IA Retreinado",
+      message: "Precisão de previsão de implantação melhorada para 94.2%",
+      timestamp: "15 min atrás",
       action_required: false
     },
     {
       id: "alert-003",
       type: "success",
-      title: "Rollback Completed",
-      message: "user-service successfully rolled back to v2.1.2",
-      timestamp: "1 hour ago", 
+      title: "Rollback Concluído",
+      message: "user-service revertido com sucesso para v2.1.2",
+      timestamp: "1 hora atrás", 
       action_required: false
     },
     {
       id: "alert-004",
       type: "critical",
-      title: "Dependency Conflict",
-      message: "Incompatible versions detected in notification-service",
-      timestamp: "5 min ago",
+      title: "Conflito de Dependência",
+      message: "Versões incompatíveis detectadas em notification-service",
+      timestamp: "5 min atrás",
       action_required: true
     }
   ];
@@ -71,10 +71,10 @@ export const AlertsPanel = () => {
         <CardTitle className="text-slate-200 flex items-center justify-between">
           <div className="flex items-center">
             <Bell className="w-5 h-5 mr-2 text-yellow-400" />
-            Smart Alerts
+            Alertas Inteligentes
           </div>
           <Badge variant="outline" className="bg-red-500/20 text-red-300 border-red-500/30">
-            2 Critical
+            2 Críticos
           </Badge>
         </CardTitle>
       </CardHeader>
@@ -94,7 +94,10 @@ export const AlertsPanel = () => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Badge variant="outline" className={getAlertColor(alert.type)}>
-                    {alert.type}
+                    {alert.type === 'warning' ? 'aviso' : 
+                     alert.type === 'info' ? 'info' : 
+                     alert.type === 'success' ? 'sucesso' : 
+                     alert.type === 'critical' ? 'crítico' : alert.type}
                   </Badge>
                   <Button size="sm" variant="ghost" className="w-6 h-6 p-0 hover:bg-slate-700">
                     <X className="w-3 h-3" />
@@ -105,10 +108,10 @@ export const AlertsPanel = () => {
               {alert.action_required && (
                 <div className="flex space-x-2 mt-3">
                   <Button size="sm" variant="outline" className="flex-1 border-slate-600 hover:bg-slate-700">
-                    Investigate
+                    Investigar
                   </Button>
                   <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
-                    Resolve
+                    Resolver
                   </Button>
                 </div>
               )}

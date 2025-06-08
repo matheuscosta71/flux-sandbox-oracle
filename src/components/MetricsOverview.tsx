@@ -7,7 +7,7 @@ import { TrendingUp, TrendingDown, Activity, AlertTriangle, CheckCircle, Clock }
 export const MetricsOverview = () => {
   const metrics = [
     {
-      title: "Deploy Success Rate",
+      title: "Taxa de Sucesso",
       value: "94.2%",
       change: "+2.3%",
       trend: "up",
@@ -15,7 +15,7 @@ export const MetricsOverview = () => {
       color: "text-green-400"
     },
     {
-      title: "Avg. Deploy Time",
+      title: "Tempo Médio",
       value: "12.4min",
       change: "-18%",
       trend: "down",
@@ -23,7 +23,7 @@ export const MetricsOverview = () => {
       color: "text-blue-400"
     },
     {
-      title: "Active Sandboxes",
+      title: "Sandboxes Ativos",
       value: "7",
       change: "+3",
       trend: "up",
@@ -31,7 +31,7 @@ export const MetricsOverview = () => {
       color: "text-purple-400"
     },
     {
-      title: "Predicted Failures",
+      title: "Falhas Previstas",
       value: "2",
       change: "-5",
       trend: "down",
@@ -45,7 +45,7 @@ export const MetricsOverview = () => {
       <CardHeader>
         <CardTitle className="text-slate-200 flex items-center">
           <Activity className="w-5 h-5 mr-2 text-blue-400" />
-          System Metrics
+          Métricas do Sistema
         </CardTitle>
       </CardHeader>
       <CardContent>

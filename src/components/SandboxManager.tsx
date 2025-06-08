@@ -14,7 +14,7 @@ export const SandboxManager = () => {
       uptime: "2h 34m",
       cpu: "45%",
       memory: "1.2GB",
-      oracle_region: "us-west-1"
+      region: "us-west-1"
     },
     {
       id: "sb-002", 
@@ -23,7 +23,7 @@ export const SandboxManager = () => {
       uptime: "12m",
       cpu: "12%",
       memory: "0.8GB",
-      oracle_region: "us-east-1"
+      region: "us-east-1"
     },
     {
       id: "sb-003",
@@ -32,7 +32,7 @@ export const SandboxManager = () => {
       uptime: "-",
       cpu: "-",
       memory: "-",
-      oracle_region: "eu-central-1"
+      region: "eu-central-1"
     }
   ];
 
@@ -51,11 +51,11 @@ export const SandboxManager = () => {
         <CardTitle className="text-slate-200 flex items-center justify-between">
           <div className="flex items-center">
             <Box className="w-5 h-5 mr-2 text-orange-400" />
-            Oracle Sandboxes
+            Sandboxes 4AI
           </div>
-          <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+          <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700 text-slate-200 font-medium">
             <Play className="w-3 h-3 mr-1" />
-            New Sandbox
+            Novo Sandbox
           </Button>
         </CardTitle>
       </CardHeader>
@@ -65,7 +65,9 @@ export const SandboxManager = () => {
             <div className="flex items-center justify-between mb-2">
               <h4 className="font-medium text-slate-200">{sandbox.name}</h4>
               <Badge variant="outline" className={getStatusColor(sandbox.status)}>
-                {sandbox.status}
+                {sandbox.status === 'running' ? 'em execução' : 
+                 sandbox.status === 'idle' ? 'ocioso' : 
+                 sandbox.status === 'provisioning' ? 'provisionando' : sandbox.status}
               </Badge>
             </div>
             
@@ -79,17 +81,17 @@ export const SandboxManager = () => {
                 RAM: {sandbox.memory}
               </div>
               <div className="col-span-2">
-                <strong>Region:</strong> {sandbox.oracle_region}
+                <strong>Região:</strong> {sandbox.region}
               </div>
               <div className="col-span-2">
-                <strong>Uptime:</strong> {sandbox.uptime}
+                <strong>Tempo ativo:</strong> {sandbox.uptime}
               </div>
             </div>
             
             <div className="flex space-x-2">
               <Button size="sm" variant="outline" className="flex-1 border-slate-600 hover:bg-slate-700">
                 <Play className="w-3 h-3 mr-1" />
-                Connect
+                Conectar
               </Button>
               <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
                 <RotateCcw className="w-3 h-3" />

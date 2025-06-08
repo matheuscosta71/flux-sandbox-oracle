@@ -15,8 +15,19 @@ import {
   User,
   Zap,
   AlertCircle,
-  CheckCircle
+  CheckCircle,
+  ChevronDown,
+  Users,
+  Code
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -28,6 +39,53 @@ import {
 
 export const ServiceCatalog = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedSquad, setSelectedSquad] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+
+  const squads = [
+    {
+      id: 1,
+      name: "Squad Alpha",
+      products: [
+        {
+          id: "alpha-1",
+          name: "Portal Cliente"
+        },
+        {
+          id: "alpha-2",
+          name: "API Gateway"
+        }
+      ]
+    },
+    {
+      id: 2,
+      name: "Squad Beta",
+      products: [
+        {
+          id: "beta-1",
+          name: "Sistema de Pagamentos"
+        },
+        {
+          id: "beta-2",
+          name: "Autenticação"
+        }
+      ]
+    },
+    {
+      id: 3,
+      name: "Squad Gamma",
+      products: [
+        {
+          id: "gamma-1",
+          name: "Análise de Dados"
+        },
+        {
+          id: "gamma-2",
+          name: "Dashboard BI"
+        }
+      ]
+    }
+  ];
 
   const services = [
     {
@@ -38,7 +96,10 @@ export const ServiceCatalog = () => {
       lifecycle: "Deprecated",
       language: "Python",
       lastCommitter: "Anton Sitwat",
-      avatar: "AS"
+      avatar: "AS",
+      squad: "Squad Alpha",
+      product: "Portal Cliente",
+      devStatus: "Em Desenvolvimento"
     },
     {
       id: 2,
@@ -48,7 +109,10 @@ export const ServiceCatalog = () => {
       lifecycle: "Production",
       language: "GO",
       lastCommitter: "Gary Zhu",
-      avatar: "MM"
+      avatar: "MM",
+      squad: "Squad Alpha",
+      product: "API Gateway",
+      devStatus: "Concluído"
     },
     {
       id: 3,
@@ -58,7 +122,10 @@ export const ServiceCatalog = () => {
       lifecycle: "Production",
       language: "GO",
       lastCommitter: "Daniyel Mosh",
-      avatar: "AM"
+      avatar: "AM",
+      squad: "Squad Beta",
+      product: "Sistema de Pagamentos",
+      devStatus: "Em Testes"
     },
     {
       id: 4,
@@ -68,7 +135,10 @@ export const ServiceCatalog = () => {
       lifecycle: "Production",
       language: "React",
       lastCommitter: "Yu Panya",
-      avatar: "DM"
+      avatar: "DM",
+      squad: "Squad Beta",
+      product: "Autenticação",
+      devStatus: "Em Desenvolvimento"
     },
     {
       id: 5,
@@ -78,24 +148,40 @@ export const ServiceCatalog = () => {
       lifecycle: "Production",
       language: "GO",
       lastCommitter: "Anton Sitwat",
-      avatar: "GZ"
+      avatar: "GZ",
+      squad: "Squad Gamma",
+      product: "Análise de Dados",
+      devStatus: "Concluído"
+    },
+    {
+      id: 6,
+      title: "Analytics",
+      tier: "Internal Service",
+      onCall: "Maria Silva",
+      lifecycle: "Development",
+      language: "Python",
+      lastCommitter: "Maria Silva",
+      avatar: "MS",
+      squad: "Squad Gamma",
+      product: "Dashboard BI",
+      devStatus: "Em Planejamento"
     }
   ];
 
   const getTierColor = (tier: string) => {
     switch (tier) {
-      case 'Mission Critical': return 'bg-red-500/20 text-red-300 border-red-500/30';
-      case 'Customer Facing': return 'bg-green-500/20 text-green-300 border-green-500/30';
-      case 'Internal Service': return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+      case 'Mission Critical': return 'bg-red-500/20 text-red-300 border-red-500/30'; // Missão Crítica
+      case 'Customer Facing': return 'bg-green-500/20 text-green-300 border-green-500/30'; // Voltado ao Cliente
+      case 'Internal Service': return 'bg-blue-500/20 text-blue-300 border-blue-500/30'; // Serviço Interno
       default: return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
     }
   };
 
   const getLifecycleColor = (lifecycle: string) => {
     switch (lifecycle) {
-      case 'Production': return 'bg-green-500/20 text-green-300 border-green-500/30';
-      case 'Deprecated': return 'bg-red-500/20 text-red-300 border-red-500/30';
-      case 'Development': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
+      case 'Production': return 'bg-green-500/20 text-green-300 border-green-500/30'; // Produção
+      case 'Deprecated': return 'bg-red-500/20 text-red-300 border-red-500/30'; // Descontinuado
+      case 'Development': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30'; // Desenvolvimento
       default: return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
     }
   };
@@ -109,11 +195,31 @@ export const ServiceCatalog = () => {
     }
   };
 
-  const filteredServices = services.filter(service =>
-    service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.tier.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.language.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const getDevStatusColor = (status: string) => {
+    switch (status) {
+      case 'Concluído': return 'bg-green-500/20 text-green-300 border-green-500/30';
+      case 'Em Testes': return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+      case 'Em Desenvolvimento': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
+      case 'Em Planejamento': return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+      default: return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
+    }
+  };
+
+  const filteredServices = services.filter(service => {
+    // Filtro por texto de busca
+    const matchesSearch = 
+      service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      service.tier.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      service.language.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Filtro por squad selecionado
+    const matchesSquad = selectedSquad ? service.squad === selectedSquad : true;
+    
+    // Filtro por produto selecionado
+    const matchesProduct = selectedProduct ? service.product === selectedProduct : true;
+    
+    return matchesSearch && matchesSquad && matchesProduct;
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
@@ -121,15 +227,15 @@ export const ServiceCatalog = () => {
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center space-x-3 mb-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-purple-500 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">4AI</span>
             </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">
-              Service Catalog
+            <h1 className="text-3xl font-bold" style={{ color: "#54c56c" }}>
+              Catálogo de Serviços
             </h1>
           </div>
           <p className="text-slate-400">
-            This is a software catalog. Drill down into a service to see context and dependencies, resources, CI/CD and more, as well as scorecards associated with it.
+            Este é um catálogo de software. Explore um serviço para ver contexto e dependências, recursos, CI/CD e mais, bem como scorecards associados a ele.
           </p>
         </div>
 
@@ -141,7 +247,7 @@ export const ServiceCatalog = () => {
                 <div className="relative flex-1 max-w-md">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
                   <Input
-                    placeholder="Search columns"
+                    placeholder="Pesquisar colunas"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 bg-slate-900/50 border-slate-600 text-slate-200 placeholder-slate-400"
@@ -150,20 +256,86 @@ export const ServiceCatalog = () => {
               </div>
               
               <div className="flex items-center space-x-2">
-                <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700">
+                      <Users className="w-4 h-4 mr-2" />
+                      {selectedSquad || "Squads"}
+                      <ChevronDown className="w-4 h-4 ml-2" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-slate-800 border-slate-700 text-slate-200">
+                    <DropdownMenuLabel>Selecione um Squad</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-slate-700" />
+                    <DropdownMenuItem 
+                      className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                      onClick={() => {
+                        setSelectedSquad(null);
+                        setSelectedProduct(null);
+                      }}
+                    >
+                      Todos os Squads
+                    </DropdownMenuItem>
+                    {squads.map(squad => (
+                      <DropdownMenuItem 
+                        key={squad.id}
+                        className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                        onClick={() => {
+                          setSelectedSquad(squad.name);
+                          setSelectedProduct(null);
+                        }}
+                      >
+                        {squad.name}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                
+                {selectedSquad && (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700">
+                        <Code className="w-4 h-4 mr-2" />
+                        {selectedProduct || "Produtos"}
+                        <ChevronDown className="w-4 h-4 ml-2" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="bg-slate-800 border-slate-700 text-slate-200">
+                      <DropdownMenuLabel>Produtos de {selectedSquad}</DropdownMenuLabel>
+                      <DropdownMenuSeparator className="bg-slate-700" />
+                      <DropdownMenuItem 
+                        className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                        onClick={() => setSelectedProduct(null)}
+                      >
+                        Todos os Produtos
+                      </DropdownMenuItem>
+                      {squads
+                        .find(squad => squad.name === selectedSquad)?.products
+                        .map(product => (
+                          <DropdownMenuItem 
+                            key={product.id}
+                            className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                            onClick={() => setSelectedProduct(product.name)}
+                          >
+                            {product.name}
+                          </DropdownMenuItem>
+                        ))
+                      }
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
+                
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-slate-600 hover:bg-slate-700"
+                  onClick={() => {
+                    setSelectedSquad(null);
+                    setSelectedProduct(null);
+                  }}
+                >
                   <Filter className="w-4 h-4 mr-2" />
-                  Filter
-                </Button>
-                <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700">
-                  <Download className="w-4 h-4 mr-2" />
-                  Export
-                </Button>
-                <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700">
-                  <Settings className="w-4 h-4" />
-                </Button>
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Service
+                  Limpar Filtros
                 </Button>
               </div>
             </div>
@@ -176,15 +348,15 @@ export const ServiceCatalog = () => {
             <Table>
               <TableHeader>
                 <TableRow className="border-slate-700">
-                  <TableHead className="text-slate-300">Title</TableHead>
-                  <TableHead className="text-slate-300">Tier</TableHead>
-                  <TableHead className="text-slate-300">URL</TableHead>
-                  <TableHead className="text-slate-300">On Call</TableHead>
-                  <TableHead className="text-slate-300">Lifecycle</TableHead>
-                  <TableHead className="text-slate-300">Language</TableHead>
-                  <TableHead className="text-slate-300">Monitor Dashboards</TableHead>
-                  <TableHead className="text-slate-300">Last Committer</TableHead>
-                  <TableHead className="text-slate-300">Property</TableHead>
+                  <TableHead className="text-slate-300">Título</TableHead>
+                  <TableHead className="text-slate-300">Squad</TableHead>
+                  <TableHead className="text-slate-300">Produto</TableHead>
+                  <TableHead className="text-slate-300">Status Dev</TableHead>
+                  <TableHead className="text-slate-300">Responsável</TableHead>
+                  <TableHead className="text-slate-300">Ciclo de Vida</TableHead>
+                  <TableHead className="text-slate-300">Linguagem</TableHead>
+                  <TableHead className="text-slate-300">Último Committer</TableHead>
+
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -199,12 +371,19 @@ export const ServiceCatalog = () => {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline" className={getTierColor(service.tier)}>
-                        {service.tier}
+                      <Badge variant="outline" className="bg-blue-500/20 text-blue-300 border-blue-500/30">
+                        {service.squad}
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      <Github className="w-4 h-4 text-slate-400" />
+                      <Badge variant="outline" className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                        {service.product}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className={getDevStatusColor(service.devStatus)}>
+                        {service.devStatus}
+                      </Badge>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
@@ -216,20 +395,15 @@ export const ServiceCatalog = () => {
                     </TableCell>
                     <TableCell>
                       <Badge variant="outline" className={getLifecycleColor(service.lifecycle)}>
-                        {service.lifecycle}
+                        {service.lifecycle === 'Production' ? 'Produção' : 
+                         service.lifecycle === 'Deprecated' ? 'Descontinuado' : 
+                         service.lifecycle === 'Development' ? 'Desenvolvimento' : service.lifecycle}
                       </Badge>
                     </TableCell>
                     <TableCell>
                       <Badge variant="outline" className={getLanguageColor(service.language)}>
                         {service.language}
                       </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center space-x-1">
-                        <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                        <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                        <div className="w-2 h-2 bg-slate-400 rounded-full"></div>
-                      </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
@@ -239,14 +413,7 @@ export const ServiceCatalog = () => {
                         <span className="text-slate-300">{service.lastCommitter}</span>
                       </div>
                     </TableCell>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <Zap className="w-4 h-4 text-yellow-400" />
-                        <Button variant="ghost" size="sm" className="w-6 h-6 p-0 hover:bg-slate-700">
-                          <MoreHorizontal className="w-4 h-4 text-slate-400" />
-                        </Button>
-                      </div>
-                    </TableCell>
+
                   </TableRow>
                 ))}
               </TableBody>
@@ -256,7 +423,7 @@ export const ServiceCatalog = () => {
 
         {/* Footer */}
         <div className="mt-4 text-sm text-slate-400">
-          {filteredServices.length} results
+          {filteredServices.length} resultados
         </div>
       </div>
     </div>

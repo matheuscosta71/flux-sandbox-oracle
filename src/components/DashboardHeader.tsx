@@ -24,9 +24,9 @@ export const DashboardHeader = () => {
             
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
-                4AI Oracle
+                4AI
               </h1>
-              <p className="text-slate-400">AI-Powered Deployment Intelligence</p>
+              <p className="text-slate-200 font-medium">Inteligência de Implantação com IA</p>
             </div>
           </div>
           
@@ -39,7 +39,7 @@ export const DashboardHeader = () => {
                 onClick={() => navigate('/')}
               >
                 <Home className="w-4 h-4 mr-2" />
-                Dashboard
+                Painel
               </Button>
               <Button 
                 variant={location.pathname === '/catalog' ? 'default' : 'outline'} 
@@ -48,23 +48,23 @@ export const DashboardHeader = () => {
                 onClick={() => navigate('/catalog')}
               >
                 <BookOpen className="w-4 h-4 mr-2" />
-                Service Catalog
+                Catálogo de Serviços
               </Button>
             </div>
             
             <Badge variant="outline" className="bg-green-500/20 text-green-300 border-green-500/30">
               <Zap className="w-3 h-3 mr-1" />
-              AI Active
+              IA Ativa
             </Badge>
             
             <Badge variant="outline" className="bg-blue-500/20 text-blue-300 border-blue-500/30">
               <Shield className="w-3 h-3 mr-1" />
-              Sandbox Ready
+              Sandbox Pronto
             </Badge>
             
             <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700">
               <Settings className="w-4 h-4 mr-2" />
-              Configure
+              Configurar
             </Button>
           </div>
         </div>
