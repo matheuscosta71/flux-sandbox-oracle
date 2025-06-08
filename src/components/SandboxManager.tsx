@@ -1,11 +1,15 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Box, Play, Square, RotateCcw, Cpu, HardDrive } from 'lucide-react';
+import { SandboxConnectModal } from '@/components/SandboxConnectModal';
+import { toast } from '@/components/ui/use-toast';
 
 export const SandboxManager = () => {
+  const [selectedSandbox, setSelectedSandbox] = useState<any>(null);
+  const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
   const sandboxes = [
     {
       id: "sb-001",
@@ -45,6 +49,40 @@ export const SandboxManager = () => {
     }
   };
 
+  const handleConnect = (sandbox: any) => {
+    setSelectedSandbox(sandbox);
+    setIsConnectModalOpen(true);
+  };
+
+  const handleRestart = (sandbox: any) => {
+    toast({
+      title: "Reiniciando sandbox",
+      description: `${sandbox.name} está sendo reiniciado...`,
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Sandbox reiniciado",
+        description: `${sandbox.name} foi reiniciado com sucesso!`,
+        variant: "success",
+      });
+    }, 1500);
+  };
+
+  const handleStop = (sandbox: any) => {
+    toast({
+      title: "Parando sandbox",
+      description: `${sandbox.name} está sendo parado...`,
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Sandbox parado",
+        description: `${sandbox.name} foi parado com sucesso!`,
+      });
+    }, 1500);
+  };
+
   return (
     <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
       <CardHeader>
@@ -53,7 +91,15 @@ export const SandboxManager = () => {
             <Box className="w-5 h-5 mr-2 text-orange-400" />
             Sandboxes 4AI
           </div>
-          <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700 text-slate-200 font-medium">
+          <Button 
+            size="sm" 
+            variant="outline" 
+            className="border-slate-600 hover:bg-slate-700 text-slate-200 font-medium"
+            onClick={() => toast({
+              title: "Criando novo sandbox",
+              description: "Iniciando provisionamento de um novo ambiente...",
+            })}
+          >
             <Play className="w-3 h-3 mr-1" />
             Novo Sandbox
           </Button>
@@ -89,20 +135,42 @@ export const SandboxManager = () => {
             </div>
             
             <div className="flex space-x-2">
-              <Button size="sm" variant="outline" className="flex-1 border-slate-600 hover:bg-slate-700">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="flex-1 border-slate-600 hover:bg-slate-700"
+                onClick={() => handleConnect(sandbox)}
+              >
                 <Play className="w-3 h-3 mr-1" />
                 Conectar
               </Button>
-              <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="border-slate-600 hover:bg-slate-700"
+                onClick={() => handleRestart(sandbox)}
+              >
                 <RotateCcw className="w-3 h-3" />
               </Button>
-              <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="border-slate-600 hover:bg-slate-700"
+                onClick={() => handleStop(sandbox)}
+              >
                 <Square className="w-3 h-3" />
               </Button>
             </div>
           </div>
         ))}
       </CardContent>
+      
+      {/* Modal de conexão ao sandbox */}
+      <SandboxConnectModal 
+        isOpen={isConnectModalOpen}
+        onClose={() => setIsConnectModalOpen(false)}
+        sandbox={selectedSandbox}
+      />
     </Card>
   );
 };

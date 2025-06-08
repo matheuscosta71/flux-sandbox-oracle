@@ -1,11 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Bell, AlertTriangle, Info, CheckCircle, X } from 'lucide-react';
+import { AlertActionModal } from '@/components/AlertActionModal';
+import { toast } from '@/components/ui/use-toast';
 
 export const AlertsPanel = () => {
+  const [selectedAlert, setSelectedAlert] = useState<any>(null);
+  const [isActionModalOpen, setIsActionModalOpen] = useState(false);
+  const [currentAction, setCurrentAction] = useState<'investigate' | 'resolve'>('investigate');
   const alerts = [
     {
       id: "alert-001",
@@ -107,10 +112,28 @@ export const AlertsPanel = () => {
               
               {alert.action_required && (
                 <div className="flex space-x-2 mt-3">
-                  <Button size="sm" variant="outline" className="flex-1 border-slate-600 hover:bg-slate-700">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="flex-1 border-slate-600 hover:bg-slate-700"
+                    onClick={() => {
+                      setSelectedAlert(alert);
+                      setCurrentAction('investigate');
+                      setIsActionModalOpen(true);
+                    }}
+                  >
                     Investigar
                   </Button>
-                  <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="border-slate-600 hover:bg-slate-700"
+                    onClick={() => {
+                      setSelectedAlert(alert);
+                      setCurrentAction('resolve');
+                      setIsActionModalOpen(true);
+                    }}
+                  >
                     Resolver
                   </Button>
                 </div>
@@ -119,6 +142,14 @@ export const AlertsPanel = () => {
           );
         })}
       </CardContent>
+      
+      {/* Modal de ação de alerta */}
+      <AlertActionModal 
+        isOpen={isActionModalOpen}
+        onClose={() => setIsActionModalOpen(false)}
+        alert={selectedAlert}
+        action={currentAction}
+      />
     </Card>
   );
 };

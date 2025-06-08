@@ -3,7 +3,7 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Brain, Settings, Zap, Shield, Home, BookOpen } from 'lucide-react';
+import { Brain, Zap, Shield, Home, BookOpen } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export const DashboardHeader = () => {
@@ -61,11 +61,6 @@ export const DashboardHeader = () => {
               <Shield className="w-3 h-3 mr-1" />
               Sandbox Pronto
             </Badge>
-            
-            <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700">
-              <Settings className="w-4 h-4 mr-2" />
-              Configurar
-            </Button>
           </div>
         </div>
       </div>

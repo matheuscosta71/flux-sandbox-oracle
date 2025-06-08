@@ -20,6 +20,7 @@ import {
   Users,
   Code
 } from 'lucide-react';
+import { GovernanceBanner } from '@/components/GovernanceBanner';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,6 +42,7 @@ export const ServiceCatalog = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSquad, setSelectedSquad] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [showGovBanner, setShowGovBanner] = useState(true);
 
   const squads = [
     {
@@ -107,7 +109,7 @@ export const ServiceCatalog = () => {
       tier: "Customer Facing",
       onCall: "Michael Molina",
       lifecycle: "Production",
-      language: "GO",
+      language: "Java",
       lastCommitter: "Gary Zhu",
       avatar: "MM",
       squad: "Squad Alpha",
@@ -120,7 +122,7 @@ export const ServiceCatalog = () => {
       tier: "Internal Service",
       onCall: "Alexander Ma",
       lifecycle: "Production",
-      language: "GO",
+      language: "Java",
       lastCommitter: "Daniyel Mosh",
       avatar: "AM",
       squad: "Squad Beta",
@@ -133,7 +135,7 @@ export const ServiceCatalog = () => {
       tier: "Customer Facing",
       onCall: "Daniyel Moshe",
       lifecycle: "Production",
-      language: "React",
+      language: "Python",
       lastCommitter: "Yu Panya",
       avatar: "DM",
       squad: "Squad Beta",
@@ -146,7 +148,7 @@ export const ServiceCatalog = () => {
       tier: "Internal Service",
       onCall: "Gary Zhu",
       lifecycle: "Production",
-      language: "GO",
+      language: "Java",
       lastCommitter: "Anton Sitwat",
       avatar: "GZ",
       squad: "Squad Gamma",
@@ -189,8 +191,7 @@ export const ServiceCatalog = () => {
   const getLanguageColor = (language: string) => {
     switch (language) {
       case 'Python': return 'bg-yellow-600/20 text-yellow-300 border-yellow-600/30';
-      case 'GO': return 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30';
-      case 'React': return 'bg-blue-400/20 text-blue-300 border-blue-400/30';
+      case 'Java': return 'bg-orange-500/20 text-orange-300 border-orange-500/30';
       default: return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
     }
   };
@@ -223,16 +224,30 @@ export const ServiceCatalog = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Faixa de Governança */}
+      <GovernanceBanner showBanner={showGovBanner} setShowBanner={setShowGovBanner} />
+      
       <div className="container mx-auto p-6">
         {/* Header */}
         <div className="mb-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">4AI</span>
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">4AI</span>
+              </div>
+              <h1 className="text-3xl font-bold" style={{ color: "#54c56c" }}>
+                Catálogo de Serviços
+              </h1>
             </div>
-            <h1 className="text-3xl font-bold" style={{ color: "#54c56c" }}>
-              Catálogo de Serviços
-            </h1>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="border-slate-600 hover:bg-slate-700"
+              onClick={() => window.history.back()}
+            >
+              <ChevronDown className="w-4 h-4 mr-2 rotate-90" />
+              Voltar
+            </Button>
           </div>
           <p className="text-slate-400">
             Este é um catálogo de software. Explore um serviço para ver contexto e dependências, recursos, CI/CD e mais, bem como scorecards associados a ele.
@@ -422,8 +437,10 @@ export const ServiceCatalog = () => {
         </Card>
 
         {/* Footer */}
-        <div className="mt-4 text-sm text-slate-400">
-          {filteredServices.length} resultados
+        <div className="mt-4">
+          <div className="text-sm text-slate-400">
+            {filteredServices.length} resultados
+          </div>
         </div>
       </div>
     </div>
