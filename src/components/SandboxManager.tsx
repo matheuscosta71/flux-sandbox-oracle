@@ -1,0 +1,106 @@
+
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Box, Play, Square, RotateCcw, Cpu, HardDrive } from 'lucide-react';
+
+export const SandboxManager = () => {
+  const sandboxes = [
+    {
+      id: "sb-001",
+      name: "user-service-test",
+      status: "running",
+      uptime: "2h 34m",
+      cpu: "45%",
+      memory: "1.2GB",
+      oracle_region: "us-west-1"
+    },
+    {
+      id: "sb-002", 
+      name: "payment-gateway-staging",
+      status: "idle",
+      uptime: "12m",
+      cpu: "12%",
+      memory: "0.8GB",
+      oracle_region: "us-east-1"
+    },
+    {
+      id: "sb-003",
+      name: "notification-preview",
+      status: "provisioning",
+      uptime: "-",
+      cpu: "-",
+      memory: "-",
+      oracle_region: "eu-central-1"
+    }
+  ];
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'running': return 'bg-green-500/20 text-green-300 border-green-500/30';
+      case 'idle': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
+      case 'provisioning': return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+      default: return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
+    }
+  };
+
+  return (
+    <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+      <CardHeader>
+        <CardTitle className="text-slate-200 flex items-center justify-between">
+          <div className="flex items-center">
+            <Box className="w-5 h-5 mr-2 text-orange-400" />
+            Oracle Sandboxes
+          </div>
+          <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+            <Play className="w-3 h-3 mr-1" />
+            New Sandbox
+          </Button>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        {sandboxes.map((sandbox) => (
+          <div key={sandbox.id} className="p-3 bg-slate-900/50 rounded-lg border border-slate-600/50">
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="font-medium text-slate-200">{sandbox.name}</h4>
+              <Badge variant="outline" className={getStatusColor(sandbox.status)}>
+                {sandbox.status}
+              </Badge>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-2 text-xs text-slate-400 mb-3">
+              <div className="flex items-center">
+                <Cpu className="w-3 h-3 mr-1" />
+                CPU: {sandbox.cpu}
+              </div>
+              <div className="flex items-center">
+                <HardDrive className="w-3 h-3 mr-1" />
+                RAM: {sandbox.memory}
+              </div>
+              <div className="col-span-2">
+                <strong>Region:</strong> {sandbox.oracle_region}
+              </div>
+              <div className="col-span-2">
+                <strong>Uptime:</strong> {sandbox.uptime}
+              </div>
+            </div>
+            
+            <div className="flex space-x-2">
+              <Button size="sm" variant="outline" className="flex-1 border-slate-600 hover:bg-slate-700">
+                <Play className="w-3 h-3 mr-1" />
+                Connect
+              </Button>
+              <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+                <RotateCcw className="w-3 h-3" />
+              </Button>
+              <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+                <Square className="w-3 h-3" />
+              </Button>
+            </div>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+};
