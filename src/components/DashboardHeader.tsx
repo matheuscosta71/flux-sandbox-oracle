@@ -3,7 +3,7 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Brain, Settings, Zap, Shield, Home, Catalog } from 'lucide-react';
+import { Brain, Settings, Zap, Shield, Home, BookOpen } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export const DashboardHeader = () => {
@@ -47,7 +47,7 @@ export const DashboardHeader = () => {
                 className={location.pathname === '/catalog' ? 'bg-blue-600 hover:bg-blue-700' : 'border-slate-600 hover:bg-slate-700'}
                 onClick={() => navigate('/catalog')}
               >
-                <Catalog className="w-4 h-4 mr-2" />
+                <BookOpen className="w-4 h-4 mr-2" />
                 Service Catalog
               </Button>
             </div>
