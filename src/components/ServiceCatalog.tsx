@@ -227,56 +227,57 @@ export const ServiceCatalog = () => {
       {/* Faixa de Governança */}
       <GovernanceBanner showBanner={showGovBanner} setShowBanner={setShowGovBanner} />
       
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto p-3 md:p-6">
         {/* Header */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-2">
+        <div className="mb-3 md:mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">4AI</span>
               </div>
-              <h1 className="text-3xl font-bold" style={{ color: "#54c56c" }}>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: "#54c56c" }}>
                 Catálogo de Serviços
               </h1>
             </div>
             <Button 
               variant="outline" 
               size="sm" 
-              className="border-slate-600 hover:bg-slate-700"
+              className="border-slate-600 hover:bg-slate-700 text-white font-medium self-start sm:self-auto"
               onClick={() => window.history.back()}
             >
               <ChevronDown className="w-4 h-4 mr-2 rotate-90" />
               Voltar
             </Button>
           </div>
-          <p className="text-slate-400">
-            Este é um catálogo de software. Explore um serviço para ver contexto e dependências, recursos, CI/CD e mais, bem como scorecards associados a ele.
+          <p className="text-slate-400 text-sm md:text-base">
+            Este é um catálogo de software. Explore um serviço para ver contexto e dependências, recursos, CI/CD e mais.
           </p>
         </div>
 
         {/* Search and Actions */}
-        <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm mb-6">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between space-x-4">
-              <div className="flex items-center space-x-4 flex-1">
-                <div className="relative flex-1 max-w-md">
+        <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm mb-3 md:mb-6">
+          <CardContent className="p-3 md:p-4">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="w-full md:max-w-md">
+                <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
                   <Input
                     placeholder="Pesquisar colunas"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 bg-slate-900/50 border-slate-600 text-slate-200 placeholder-slate-400"
+                    className="pl-10 bg-slate-900/50 border-slate-600 text-slate-200 placeholder-slate-400 w-full"
                   />
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700">
-                      <Users className="w-4 h-4 mr-2" />
-                      {selectedSquad || "Squads"}
-                      <ChevronDown className="w-4 h-4 ml-2" />
+                    <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700 text-white font-medium">
+                      <Users className="w-4 h-4 mr-1 md:mr-2" />
+                      <span className="hidden xs:inline">{selectedSquad || "Squads"}</span>
+                      <span className="xs:hidden">Squad</span>
+                      <ChevronDown className="w-4 h-4 ml-1 md:ml-2" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="bg-slate-800 border-slate-700 text-slate-200">
@@ -309,10 +310,11 @@ export const ServiceCatalog = () => {
                 {selectedSquad && (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700">
-                        <Code className="w-4 h-4 mr-2" />
-                        {selectedProduct || "Produtos"}
-                        <ChevronDown className="w-4 h-4 ml-2" />
+                      <Button variant="outline" size="sm" className="border-slate-600 hover:bg-slate-700 text-white font-medium">
+                        <Code className="w-4 h-4 mr-1 md:mr-2" />
+                        <span className="hidden xs:inline">{selectedProduct || "Produtos"}</span>
+                        <span className="xs:hidden">Prod</span>
+                        <ChevronDown className="w-4 h-4 ml-1 md:ml-2" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="bg-slate-800 border-slate-700 text-slate-200">
@@ -343,14 +345,15 @@ export const ServiceCatalog = () => {
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  className="border-slate-600 hover:bg-slate-700"
+                  className="border-slate-600 hover:bg-slate-700 text-white font-medium"
                   onClick={() => {
                     setSelectedSquad(null);
                     setSelectedProduct(null);
                   }}
                 >
-                  <Filter className="w-4 h-4 mr-2" />
-                  Limpar Filtros
+                  <Filter className="w-4 h-4 mr-1 md:mr-2" />
+                  <span className="hidden xs:inline">Limpar Filtros</span>
+                  <span className="xs:hidden">Limpar</span>
                 </Button>
               </div>
             </div>
@@ -437,8 +440,8 @@ export const ServiceCatalog = () => {
         </Card>
 
         {/* Footer */}
-        <div className="mt-4">
-          <div className="text-sm text-slate-400">
+        <div className="mt-3 md:mt-4">
+          <div className="text-xs md:text-sm text-slate-400">
             {filteredServices.length} resultados
           </div>
         </div>

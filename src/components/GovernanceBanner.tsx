@@ -18,22 +18,22 @@ export const GovernanceBanner = ({ showBanner, setShowBanner }: GovernanceBanner
         TESTE
       </div>
       
-      <div className="container mx-auto py-3 px-4 relative z-10">
-        <div className="flex items-center justify-between">
+      <div className="container mx-auto py-2 md:py-3 px-3 md:px-4 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <div className="flex items-center space-x-3">
             <div className="relative">
               <Shield className="h-6 w-6 text-white" />
               <AlertCircle className="h-4 w-4 text-white absolute -top-1 -right-1 bg-red-500 rounded-full p-0.5" />
             </div>
             <div>
-              <h3 className="font-bold text-white">Ambiente de Teste - Governança e Processos de IA</h3>
-              <p className="text-amber-100 text-sm">
-                Você está usando um ambiente de teste. Conheça nossos processos de governança e como implementamos IA de forma responsável
+              <h3 className="font-bold text-white text-sm md:text-base">Ambiente de Teste - Governança e Processos de IA</h3>
+              <p className="text-amber-100 text-xs md:text-sm">
+                Você está usando um ambiente de teste. Conheça nossos processos de governança
               </p>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
-            <span className="px-2 py-1 text-xs bg-red-500/20 border border-red-500/40 text-white rounded-md font-medium mr-2">
+          <div className="flex items-center space-x-2 md:space-x-3 self-end md:self-auto">
+            <span className="hidden md:inline-block px-2 py-1 text-xs bg-red-500/20 border border-red-500/40 text-white rounded-md font-medium">
               Ambiente de Teste
             </span>
             <a 
@@ -43,7 +43,8 @@ export const GovernanceBanner = ({ showBanner, setShowBanner }: GovernanceBanner
               className="flex items-center space-x-1 bg-white text-amber-700 hover:bg-amber-100 px-2 py-1 rounded-md text-xs font-medium transition-colors"
             >
               <BookOpen className="h-3 w-3" />
-              <span>Documentação</span>
+              <span className="hidden sm:inline">Documentação</span>
+              <span className="sm:hidden">Docs</span>
               <ExternalLink className="h-2 w-2" />
             </a>
             <button 

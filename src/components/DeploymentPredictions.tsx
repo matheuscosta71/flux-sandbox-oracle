@@ -71,56 +71,56 @@ export const DeploymentPredictions = () => {
             Previsões de Implantação IA
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-2 sm:space-y-3 md:space-y-4">
           {predictions.map((prediction) => {
             const StatusIcon = getStatusIcon(prediction.status);
             return (
-              <div key={prediction.id} className="p-4 bg-slate-900/50 rounded-lg border border-slate-600/50">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center space-x-3">
-                    <StatusIcon className="w-5 h-5 text-slate-400" />
+              <div key={prediction.id} className="p-2 sm:p-3 md:p-4 bg-slate-900/50 rounded-lg border border-slate-600/50">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-0 mb-3">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <StatusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400" />
                     <div>
-                      <h4 className="font-semibold text-slate-200">{prediction.service}</h4>
-                      <p className="text-sm text-slate-400">ETA: {prediction.eta}</p>
+                      <h4 className="font-semibold text-slate-200 text-sm sm:text-base">{prediction.service}</h4>
+                      <p className="text-xs sm:text-sm text-slate-400">ETA: {prediction.eta}</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Badge variant="outline" className={getStatusColor(prediction.status)}>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="outline" className={`text-xs ${getStatusColor(prediction.status)}`}>
                       {prediction.status === 'high_risk' ? 'alto risco' : 
                      prediction.status === 'medium_risk' ? 'risco médio' : 
                      prediction.status === 'low_risk' ? 'baixo risco' : 
                      prediction.status.replace('_', ' ')}
                     </Badge>
-                    <Badge variant="outline" className="bg-blue-500/20 text-blue-300 border-blue-500/30">
-                      <TrendingUp className="w-3 h-3 mr-1" />
+                    <Badge variant="outline" className="text-xs bg-blue-500/20 text-blue-300 border-blue-500/30">
+                      <TrendingUp className="w-2 h-2 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
                       {prediction.confidence}%
                     </Badge>
                   </div>
                 </div>
                 
-                <div className="space-y-2 mb-3">
-                  <p className="text-sm text-slate-300">
+                <div className="space-y-1 sm:space-y-2 mb-2 sm:mb-3">
+                  <p className="text-xs sm:text-sm text-slate-300">
                     <strong>Fatores de Risco:</strong>
                   </p>
-                  <ul className="text-xs text-slate-400 space-y-1">
+                  <ul className="text-[10px] sm:text-xs text-slate-400 space-y-0.5 sm:space-y-1">
                     {prediction.risk_factors.map((factor, index) => (
                       <li key={index} className="flex items-center">
-                        <span className="w-1.5 h-1.5 bg-slate-500 rounded-full mr-2"></span>
+                        <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-slate-500 rounded-full mr-1 sm:mr-2"></span>
                         {factor}
                       </li>
                     ))}
                   </ul>
                 </div>
                 
-                <div className="flex items-center justify-between">
-                  <p className="text-sm text-slate-300">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <p className="text-xs sm:text-sm text-slate-300">
                     <strong>Recomendação:</strong> <span className="text-slate-400">{prediction.recommendation}</span>
                   </p>
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-2 self-end sm:self-auto">
                     <Button 
                       size="sm" 
                       variant="outline" 
-                      className="border-slate-600 hover:bg-slate-700"
+                      className="text-xs border-slate-600 hover:bg-slate-700 h-7 sm:h-8 px-2 sm:px-3"
                       onClick={() => {
                         setSelectedPrediction(prediction);
                         setDetailViewOpen(true);
@@ -131,7 +131,7 @@ export const DeploymentPredictions = () => {
                     <Button 
                       size="sm" 
                       variant="outline" 
-                      className="border-green-600 text-green-400 hover:bg-green-900/20"
+                      className="text-xs border-green-600 text-green-400 hover:bg-green-900/20 h-7 sm:h-8 px-2 sm:px-3"
                       onClick={() => {
                         setSelectedPrediction(prediction);
                         setApprovalDialogOpen(true);

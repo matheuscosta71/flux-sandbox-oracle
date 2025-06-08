@@ -105,25 +105,25 @@ export const SandboxManager = () => {
           </Button>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-2 sm:space-y-3">
         {sandboxes.map((sandbox) => (
-          <div key={sandbox.id} className="p-3 bg-slate-900/50 rounded-lg border border-slate-600/50">
-            <div className="flex items-center justify-between mb-2">
-              <h4 className="font-medium text-slate-200">{sandbox.name}</h4>
-              <Badge variant="outline" className={getStatusColor(sandbox.status)}>
+          <div key={sandbox.id} className="p-2 sm:p-3 bg-slate-900/50 rounded-lg border border-slate-600/50">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 mb-1 sm:mb-2">
+              <h4 className="font-medium text-slate-200 text-sm sm:text-base">{sandbox.name}</h4>
+              <Badge variant="outline" className={`text-xs ${getStatusColor(sandbox.status)}`}>
                 {sandbox.status === 'running' ? 'em execução' : 
                  sandbox.status === 'idle' ? 'ocioso' : 
                  sandbox.status === 'provisioning' ? 'provisionando' : sandbox.status}
               </Badge>
             </div>
             
-            <div className="grid grid-cols-2 gap-2 text-xs text-slate-400 mb-3">
+            <div className="grid grid-cols-2 gap-1 sm:gap-2 text-[10px] sm:text-xs text-slate-400 mb-2 sm:mb-3">
               <div className="flex items-center">
-                <Cpu className="w-3 h-3 mr-1" />
+                <Cpu className="w-2 h-2 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
                 CPU: {sandbox.cpu}
               </div>
               <div className="flex items-center">
-                <HardDrive className="w-3 h-3 mr-1" />
+                <HardDrive className="w-2 h-2 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
                 RAM: {sandbox.memory}
               </div>
               <div className="col-span-2">
@@ -134,31 +134,32 @@ export const SandboxManager = () => {
               </div>
             </div>
             
-            <div className="flex space-x-2">
+            <div className="flex space-x-1 sm:space-x-2">
               <Button 
                 size="sm" 
                 variant="outline" 
-                className="flex-1 border-slate-600 hover:bg-slate-700"
+                className="flex-1 text-xs border-slate-600 hover:bg-slate-700 h-7 sm:h-8 px-2 sm:px-3"
                 onClick={() => handleConnect(sandbox)}
               >
-                <Play className="w-3 h-3 mr-1" />
-                Conectar
+                <Play className="w-2 h-2 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
+                <span className="hidden xs:inline">Conectar</span>
+                <span className="xs:hidden">Con</span>
               </Button>
               <Button 
                 size="sm" 
                 variant="outline" 
-                className="border-slate-600 hover:bg-slate-700"
+                className="border-slate-600 hover:bg-slate-700 h-7 sm:h-8 w-7 sm:w-8 p-0"
                 onClick={() => handleRestart(sandbox)}
               >
-                <RotateCcw className="w-3 h-3" />
+                <RotateCcw className="w-2 h-2 sm:w-3 sm:h-3" />
               </Button>
               <Button 
                 size="sm" 
                 variant="outline" 
-                className="border-slate-600 hover:bg-slate-700"
+                className="border-slate-600 hover:bg-slate-700 h-7 sm:h-8 w-7 sm:w-8 p-0"
                 onClick={() => handleStop(sandbox)}
               >
-                <Square className="w-3 h-3" />
+                <Square className="w-2 h-2 sm:w-3 sm:h-3" />
               </Button>
             </div>
           </div>

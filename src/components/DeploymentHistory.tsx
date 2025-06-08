@@ -86,22 +86,22 @@ export const DeploymentHistory = () => {
             </Button>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-2 sm:space-y-3">
           {deployments.map((deployment) => {
             const StatusIcon = getStatusIcon(deployment.status);
             return (
-              <div key={deployment.id} className="p-4 bg-slate-900/50 rounded-lg border border-slate-600/50">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center space-x-3">
-                    <StatusIcon className="w-5 h-5 text-slate-400" />
+              <div key={deployment.id} className="p-2 sm:p-3 md:p-4 bg-slate-900/50 rounded-lg border border-slate-600/50">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mb-2 sm:mb-3">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <StatusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400" />
                     <div>
-                      <h4 className="font-semibold text-slate-200">
-                        {deployment.service} <ArrowRight className="w-3 h-3 inline mx-1" /> {deployment.version}
+                      <h4 className="font-semibold text-slate-200 text-sm sm:text-base">
+                        {deployment.service} <ArrowRight className="w-2 h-2 sm:w-3 sm:h-3 inline mx-0.5 sm:mx-1" /> {deployment.version}
                       </h4>
-                      <p className="text-xs text-slate-400">{deployment.timestamp}</p>
+                      <p className="text-[10px] sm:text-xs text-slate-400">{deployment.timestamp}</p>
                     </div>
                   </div>
-                  <Badge variant="outline" className={getStatusColor(deployment.status)}>
+                  <Badge variant="outline" className={`text-xs ${getStatusColor(deployment.status)}`}>
                     {deployment.status === 'success' ? 'sucesso' : 
                      deployment.status === 'failed' ? 'falha' : 
                      deployment.status === 'in_progress' ? 'em progresso' : 
@@ -109,29 +109,29 @@ export const DeploymentHistory = () => {
                   </Badge>
                 </div>
                 
-                <div className="grid grid-cols-3 gap-4 text-sm mb-3">
+                <div className="grid grid-cols-3 gap-1 sm:gap-4 text-xs sm:text-sm mb-2 sm:mb-3">
                   <div>
-                    <span className="text-slate-400">Duração:</span>
+                    <span className="text-slate-400 text-[10px] sm:text-xs">Duração:</span>
                     <p className="text-slate-200">{deployment.duration}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400">Score IA:</span>
+                    <span className="text-slate-400 text-[10px] sm:text-xs">Score IA:</span>
                     <p className="text-slate-200">{deployment.confidence_score}%</p>
                   </div>
                   <div>
-                    <span className="text-slate-400">Rollback:</span>
+                    <span className="text-slate-400 text-[10px] sm:text-xs">Rollback:</span>
                     <p className={deployment.rollback_available ? "text-green-300" : "text-slate-400"}>
                       {deployment.rollback_available ? "Disponível" : "N/A"}
                     </p>
                   </div>
                 </div>
                 
-                <div className="flex space-x-2">
-                  <div className="flex space-x-2">
+                <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <Button 
                       size="sm" 
                       variant="outline" 
-                      className="border-slate-600 hover:bg-slate-700"
+                      className="text-xs border-slate-600 hover:bg-slate-700 h-7 sm:h-8 px-2 sm:px-3"
                       onClick={() => {
                         setSelectedDeployment(deployment);
                         setDetailViewOpen(true);
@@ -142,18 +142,22 @@ export const DeploymentHistory = () => {
                     <Button 
                       size="sm" 
                       variant="outline" 
-                      className="border-slate-600 hover:bg-slate-700"
+                      className="text-xs border-slate-600 hover:bg-slate-700 h-7 sm:h-8 px-2 sm:px-3"
                       onClick={() => {
                         setSelectedDeployment(deployment);
                         setDocumentationViewOpen(true);
                       }}
                     >
-                      <FileText className="w-3 h-3 mr-1" />
+                      <FileText className="w-2 h-2 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
                       Docs
                     </Button>
                   </div>
                   {deployment.rollback_available && (
-                    <Button size="sm" variant="outline" className="border-slate-600 hover:bg-slate-700">
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="text-xs border-slate-600 hover:bg-slate-700 h-7 sm:h-8 px-2 sm:px-3"
+                    >
                       Reverter
                     </Button>
                   )}

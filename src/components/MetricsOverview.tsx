@@ -49,28 +49,28 @@ export const MetricsOverview = () => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
           {metrics.map((metric, index) => {
             const Icon = metric.icon;
             return (
-              <div key={index} className="p-4 bg-slate-900/50 rounded-lg border border-slate-600/50">
-                <div className="flex items-center justify-between mb-2">
-                  <Icon className={`w-5 h-5 ${metric.color}`} />
+              <div key={index} className="p-2 sm:p-3 md:p-4 bg-slate-900/50 rounded-lg border border-slate-600/50">
+                <div className="flex items-center justify-between mb-1 md:mb-2">
+                  <Icon className={`w-4 h-4 md:w-5 md:h-5 ${metric.color}`} />
                   <Badge 
                     variant="outline" 
-                    className={`text-xs ${
+                    className={`text-[10px] md:text-xs ${
                       metric.trend === 'up' 
                         ? 'bg-green-500/20 text-green-300 border-green-500/30' 
                         : 'bg-blue-500/20 text-blue-300 border-blue-500/30'
                     }`}
                   >
-                    {metric.trend === 'up' ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
+                    {metric.trend === 'up' ? <TrendingUp className="w-2 h-2 md:w-3 md:h-3 mr-0.5 md:mr-1" /> : <TrendingDown className="w-2 h-2 md:w-3 md:h-3 mr-0.5 md:mr-1" />}
                     {metric.change}
                   </Badge>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-2xl font-bold text-slate-200">{metric.value}</p>
-                  <p className="text-sm text-slate-400">{metric.title}</p>
+                <div className="space-y-0.5 md:space-y-1">
+                  <p className="text-lg sm:text-xl md:text-2xl font-bold text-slate-200">{metric.value}</p>
+                  <p className="text-xs md:text-sm text-slate-400">{metric.title}</p>
                 </div>
               </div>
             );

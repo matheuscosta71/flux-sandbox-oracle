@@ -83,39 +83,39 @@ export const AlertsPanel = () => {
           </Badge>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-2 sm:space-y-3">
         {alerts.map((alert) => {
           const AlertIcon = getAlertIcon(alert.type);
           return (
-            <div key={alert.id} className="p-3 bg-slate-900/50 rounded-lg border border-slate-600/50">
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex items-start space-x-3">
-                  <AlertIcon className="w-4 h-4 mt-0.5 text-slate-400" />
+            <div key={alert.id} className="p-2 sm:p-3 bg-slate-900/50 rounded-lg border border-slate-600/50">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:mb-2">
+                <div className="flex items-start space-x-2 sm:space-x-3">
+                  <AlertIcon className="w-3 h-3 sm:w-4 sm:h-4 mt-0.5 text-slate-400" />
                   <div className="flex-1">
-                    <h4 className="font-medium text-slate-200 text-sm">{alert.title}</h4>
-                    <p className="text-xs text-slate-400 mt-1">{alert.message}</p>
-                    <p className="text-xs text-slate-500 mt-1">{alert.timestamp}</p>
+                    <h4 className="font-medium text-slate-200 text-xs sm:text-sm">{alert.title}</h4>
+                    <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1">{alert.message}</p>
+                    <p className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">{alert.timestamp}</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Badge variant="outline" className={getAlertColor(alert.type)}>
+                <div className="flex items-center space-x-2 self-end sm:self-start">
+                  <Badge variant="outline" className={`text-[10px] sm:text-xs ${getAlertColor(alert.type)}`}>
                     {alert.type === 'warning' ? 'aviso' : 
                      alert.type === 'info' ? 'info' : 
                      alert.type === 'success' ? 'sucesso' : 
                      alert.type === 'critical' ? 'crítico' : alert.type}
                   </Badge>
-                  <Button size="sm" variant="ghost" className="w-6 h-6 p-0 hover:bg-slate-700">
-                    <X className="w-3 h-3" />
+                  <Button size="sm" variant="ghost" className="w-5 h-5 sm:w-6 sm:h-6 p-0 hover:bg-slate-700">
+                    <X className="w-2 h-2 sm:w-3 sm:h-3" />
                   </Button>
                 </div>
               </div>
               
               {alert.action_required && (
-                <div className="flex space-x-2 mt-3">
+                <div className="flex space-x-2 mt-2 sm:mt-3">
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="flex-1 border-slate-600 hover:bg-slate-700"
+                    className="flex-1 text-xs border-slate-600 hover:bg-slate-700 h-7 sm:h-8 px-2 sm:px-3"
                     onClick={() => {
                       setSelectedAlert(alert);
                       setCurrentAction('investigate');
@@ -127,7 +127,7 @@ export const AlertsPanel = () => {
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="border-slate-600 hover:bg-slate-700"
+                    className="text-xs border-slate-600 hover:bg-slate-700 h-7 sm:h-8 px-2 sm:px-3"
                     onClick={() => {
                       setSelectedAlert(alert);
                       setCurrentAction('resolve');
