@@ -1,73 +1,124 @@
-# Welcome to 4AI project
+# 4IA Project - Inteligência Artificial aplicada à qualidade de software
 
-## Project info
+Acesse a demo de nossa aplicação: https://flux-sandbox-oracle-six.vercel.app/
 
-**URL**: https://lovable.dev/projects/05a8b8d9-f66f-4ee2-982a-675ea660ced5
+## Visão Geral
 
-## How can I edit this code?
+O 4IA é uma ferramenta de gerenciamento inteligente de qualidade de software, desenvolvida para resolver falhas recorrentes nos fluxos de desenvolvimento.
 
-There are several ways of editing your application.
+A solução atua como uma camada de proteção automatizada no ciclo de deploy, utilizando Inteligência Artificial para identificar padrões de falhas e evitar que erros cheguem à produção.
 
-**Use Lovable**
+Nosso objetivo é garantir maior segurança, eficiência e confiabilidade nos ambientes digitais críticos.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/05a8b8d9-f66f-4ee2-982a-675ea660ced5) and start prompting.
+## O Problema
 
-Changes made via Lovable will be committed automatically to this repo.
+Cenários recentes demonstraram que falhas em ambientes digitais impactam diretamente a experiência dos clientes e a reputação do banco.
 
-**Use your preferred IDE**
+Exemplo: indisponibilidade no Pix e falhas no login da conta.
+Consequência: além de afetar o cliente, esse tipo de incidente pode gerar penalizações regulatórias e multas expressivas.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Raiz do problema:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* Ambientes de teste dependentes e não integrados.
+* Falhas silenciosas que só são percebidas em produção.
 
-Follow these steps:
+## A Solução: 4IA
+
+O 4IA atua como uma linha de inspeção inteligente no pipeline de desenvolvimento.
+
+Funcionalidades principais:
+
+* Integração de testes unitários e testes integrados em um fluxo automatizado.
+* Geração de métricas precisas sobre a performance das equipes.
+* Análise contínua com IA dos testes executados.
+* Identificação de padrões de falhas, inconsistência de dados e problemas de planejamento de testes.
+* Bloqueio automático do gatilho de deploy em caso de falhas, prevenindo impactos em produção.
+
+Benefícios:
+
+* Maior segurança no processo de deploy.
+* Redução de riscos de incidentes em produção.
+* Aumento da confiança no pipeline de engenharia.
+* Proteção da experiência do cliente.
+
+## Arquitetura e Detalhes Técnicos
+
+A aplicação foi desenhada para:
+
+* Resolver falhas recorrentes no fluxo de desenvolvimento.
+* Alinhar ambientes de teste e reduzir dependências silenciosas.
+* Aumentar a capacidade preditiva com o uso de Inteligência Artificial.
+
+Integração com o pipeline CI/CD:
+
+* Identificação contínua de padrões de falha.
+* Interrupção automática de deploy em caso de risco identificado.
+* Notificações e geração de relatórios para melhoria contínua.
+
+## O Papel da Inteligência Artificial
+
+Dados do DORA Report 2024:
+
+* 81% das empresas já utilizam IA em processos de desenvolvimento.
+
+Impacto da adoção de IA:
+
+* 7,5% de aumento na qualidade da documentação.
+* 3,4% de melhoria na qualidade do código.
+* 3,1% de aceleração no tempo de revisão de código.
+* 1,8% de redução na complexidade do código.
+
+O 4IA permite que o banco se beneficie diretamente desses ganhos.
+
+## Tecnologias Utilizadas
+
+* Vite
+* TypeScript
+* React
+* shadcn-ui
+* Tailwind CSS
+* Azion
+* Oracle
+
+## Como Rodar o Projeto Localmente
+
+Pré-requisitos:
+
+* Node.js e npm (instalação recomendada via nvm)
+
+Passos:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Contribuindo
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Utilize seu editor preferido ou o GitHub diretamente.
 
-**Use GitHub Codespaces**
+### Usando seu IDE
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. Clone o repositório.
+2. Realize as alterações desejadas.
+3. Commit e push.
 
-## What technologies are used for this project?
+### Editando no GitHub
 
-This project is built with:
+1. Acesse o arquivo desejado.
+2. Clique em "Edit".
+3. Faça as alterações e commit.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Conclusão
 
-## How can I deploy this project?
+O 4IA oferece uma solução prática e estratégica para um problema crítico nos fluxos de desenvolvimento.
 
-Simply open [Lovable](https://lovable.dev/projects/05a8b8d9-f66f-4ee2-982a-675ea660ced5) and click on Share -> Publish.
+Protege o banco contra falhas em produção, aumenta a eficiência do ciclo de entrega e eleva a maturidade da engenharia com o uso de Inteligência Artificial.
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Investir em qualidade automatizada e IA não é mais uma tendência — é uma vantagem competitiva essencial.
+O 4IA está pronto para contribuir com este avanço.
