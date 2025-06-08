@@ -1,5 +1,52 @@
 # Welcome to 4AI project
 
+<img src="public/logotype.png" alt="Logo" width="45" />
+
+# Dados de Teste com JSON Inválido (como variável Python)
+
+Este exemplo contém dados simulados em formato de dicionário Python para testes de validação com erro proposital no campo `cep` e um campo extra `estado`.
+
+## 💻 Código Python
+
+```python
+dados = {
+    "cliente": {
+        "id": "123456",
+        "nome": "João da Silva",
+        "cpf": "123.456.789-00",
+        "data_nascimento": "1985-07-15",
+        "telefone": {
+            "residencial": "(11) 2345-6789",
+            "celular": "(11) 91234-5678"
+        },
+        "endereco": {
+            "logradouro": "Pedro Paulo",
+            "numero": "123",
+            "complemento": "Apto 45",
+            "bairro": "Jardim das Flores",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "cep": "abc-567"  # <- cep inválido propositalmente
+        },
+        "data_cadastro": "2023-08-10T14:35:00Z",
+        "estado": "solteiro",  # <- campo extra não previsto no schema
+        "ativo": True
+    }
+}
+
+# Exibir informações específicas
+print("Nome do cliente:", dados["cliente"]["nome"])
+print("CEP informado:", dados["cliente"]["endereco"]["cep"])
+```
+![Fluxo Funcional](https://github.com/matheuscosta71/flux-sandbox-oracle/blob/main/Fluxo_Funcional.png?raw=true)
+
+
+
+
+
+
+
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/05a8b8d9-f66f-4ee2-982a-675ea660ced5
